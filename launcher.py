@@ -89,7 +89,7 @@ class SplashLauncher:
                         python_exe, "-m", "pip", "install", 
                         "git+https://github.com/m-bain/whisperx.git", 
                         "gradio==4.44.1", 
-                        "gradio-client==1.3.0",  # <--- CRITICAL LINE
+                        "gradio-client==1.3.0",  # Important
                         "omegaconf", 
                         "ffmpeg-python"
                     ], creationflags=creation_flags)
@@ -99,7 +99,7 @@ class SplashLauncher:
                     self.update_status("Loading AI Models... Please wait (20-40s)")
                     log(f"Found {app_script}. Launching subprocess...")
                     
-                    # Launch without console window (This is safe for the GUI app)
+                    # Launch without console window 
                     subprocess.Popen(
                         [python_exe, app_script],
                         creationflags=subprocess.CREATE_NO_WINDOW
