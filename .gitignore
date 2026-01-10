@@ -1,0 +1,25 @@
+# System & Environment
+venv_wb/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Logs
+*.log
+*.txt
+!requirements.txt
+!LICENSE
+!README.md
+
+# Project Specific
+output_videos/
+input_videos/
+
+# PyInstaller / Build Artifacts
+dist/
+build/
+*.spec
+
+# IDEs
+.vscode/
+.idea/
