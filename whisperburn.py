@@ -18,18 +18,18 @@ import gc
 import re
 from pathlib import Path
 
-# ==========================================
+
 # VISUAL THEME (Dark + Orange)
-# ==========================================
+###################################
 theme = gr.themes.Soft(
     primary_hue="orange",
     neutral_hue="slate",
     font=[gr.themes.GoogleFont("Inter"), "ui-sans-serif", "system-ui"],
 ).set(
-    body_background_fill="#0b0f19",       # Deep black/blue background
-    block_background_fill="#111827",      # Slightly lighter blocks
+    body_background_fill="#0b0f19",  # Deep black/blue background
+    block_background_fill="#111827",  # Slightly lighter blocks
     block_border_width="1px",
-    block_border_color="#374151",         # Subtle borders
+    block_border_color="#374151", # Subtle borders
     button_primary_background_fill="#f97316", # Bright Orange
     button_primary_background_fill_hover="#ea580c",
     button_primary_text_color="white",
@@ -54,9 +54,8 @@ h1 { color: #f97316 !important; font-weight: 800 !important; font-size: 2.5rem !
 footer { display: none !important; }
 """
 
-# ==========================================
 # APP LOGIC
-# ==========================================
+###################
 OUTPUT_DIR = "./output_videos"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -129,7 +128,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         events += f"Dialogue: 0,{start},{end},Default,,0,0,0,,{text}\n"
     return header + events
 
-# --- STEP 1: GENERATE ---
+# STEP 1: GENERATE 
 def step1_transcribe(video, start, end, model, offset, device_pref, progress=gr.Progress()):
     if not video: return None, None, None
     name = Path(video).stem.replace(" ", "_")[:30]
@@ -162,7 +161,7 @@ def step1_transcribe(video, start, end, model, offset, device_pref, progress=gr.
     gc.collect(); torch.cuda.empty_cache()
     return trim, ass_content, ass_file
 
-# --- STEP 2: BURN ---
+# STEP 2: BURN 
 def step2_burn(trimmed_video, ass_content, text_col, bor_col, fs, bw, margin, progress=gr.Progress()):
     if not trimmed_video or not ass_content: return None
     progress(0.1, desc="Rendering Subtitles...")
@@ -182,9 +181,9 @@ def step2_burn(trimmed_video, ass_content, text_col, bor_col, fs, bw, margin, pr
     subprocess.run(["ffmpeg", "-y", "-i", trimmed_video, "-vf", f"subtitles='{safe_ass_path}'", "-c:v", "libx264", "-preset", "fast", "-c:a", "copy", final], capture_output=True, check=True)
     return final
 
-# ==========================================
+
 # UI LAYOUT
-# ==========================================
+################
 with gr.Blocks(title="WhisperBurn", theme=theme, css=css) as demo:
     with gr.Row():
         gr.Markdown("# WhisperBurn <span class='pro-badge'>AI</span>")
