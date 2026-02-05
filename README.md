@@ -2,7 +2,7 @@
 
 **WhisperBurn** is an AI-powered local subtitle generator and burner. It uses **WhisperX** for highly accurate, word-level timed subtitles and **FFmpeg** to burn them directly into videos with custom styling.
 
-> **Status**: Prototype (v1). A native desktop version is in development.
+> **Status**: Prototype (v1).
 
 ## 🚀 Features
 
